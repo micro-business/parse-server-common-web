@@ -1,8 +1,8 @@
 {
   "name": "micro-business-parse-server-common-web",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Micro Business Parse Server Common Web",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "start": "babel-node src/index.js",
     "build": "babel src --out-dir dist",
