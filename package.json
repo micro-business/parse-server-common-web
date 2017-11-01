@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-web",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Micro Business Parse Server Common Web",
   "main": "./dist/index.js",
   "scripts": {

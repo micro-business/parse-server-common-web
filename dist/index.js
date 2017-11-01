@@ -74,13 +74,13 @@ Object.defineProperty(exports, 'watchSignOut', {
   }
 });
 
-var _reactNative = require('parse/react-native');
+var _parse = require('parse');
 
-var _reactNative2 = _interopRequireDefault(_reactNative);
+var _parse2 = _interopRequireDefault(_parse);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var configParseServerSdk = exports.configParseServerSdk = function configParseServerSdk(serverUrl, applicationId, javascriptKey) {
-  _reactNative2.default.initialize(applicationId, javascriptKey);
-  _reactNative2.default.serverURL = serverUrl;
+  _parse2.default.initialize(applicationId, javascriptKey);
+  _parse2.default.serverURL = serverUrl;
 };

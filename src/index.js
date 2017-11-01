@@ -1,6 +1,6 @@
 // @flow
 
-import Parse from 'parse/react-native';
+import Parse from 'parse';
 
 export { BaseObject } from './schema';
 export { ParseWrapperService, UserService } from './services';
