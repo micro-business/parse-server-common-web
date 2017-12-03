@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-web",
-  "version": "1.0.0-alpha.6",
+  "version": "1.1.0",
   "description": "Micro Business Parse Server Common Web",
   "main": "./dist/index.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "lint-staged": "^6.0.0",
-    "parse": "^1.10.2",
+    "parse": "^1.11.0",
     "prettier": "^1.8.2"
   },
   "jest": {
