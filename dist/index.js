@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.configParseServerSdk = exports.watchSignOut = exports.watchSignInWithUsernameAndPassword = exports.watchSignUpWithUsernameAndPassword = exports.watchGetCurrentUser = exports.UserAccessStatus = exports.UserAccessReducer = exports.UserAccessActionTypes = exports.UserService = exports.ParseWrapperService = exports.BaseObject = undefined;
+exports.configParseServerSdk = exports.watchSignOut = exports.watchSignInWithUsernameAndPassword = exports.watchSignUpWithUsernameAndPassword = exports.watchGetCurrentUser = exports.UserService = exports.ParseWrapperService = exports.BaseObject = undefined;
 
 var _schema = require('./schema');
 
@@ -31,24 +31,6 @@ Object.defineProperty(exports, 'UserService', {
 
 var _userAccess = require('./userAccess');
 
-Object.defineProperty(exports, 'UserAccessActionTypes', {
-  enumerable: true,
-  get: function get() {
-    return _userAccess.ActionTypes;
-  }
-});
-Object.defineProperty(exports, 'UserAccessReducer', {
-  enumerable: true,
-  get: function get() {
-    return _userAccess.UserAccessReducer;
-  }
-});
-Object.defineProperty(exports, 'UserAccessStatus', {
-  enumerable: true,
-  get: function get() {
-    return _userAccess.Status;
-  }
-});
 Object.defineProperty(exports, 'watchGetCurrentUser', {
   enumerable: true,
   get: function get() {

@@ -4,15 +4,7 @@ import Parse from 'parse';
 
 export { BaseObject } from './schema';
 export { ParseWrapperService, UserService } from './services';
-export {
-  ActionTypes as UserAccessActionTypes,
-  UserAccessReducer,
-  Status as UserAccessStatus,
-  watchGetCurrentUser,
-  watchSignUpWithUsernameAndPassword,
-  watchSignInWithUsernameAndPassword,
-  watchSignOut,
-} from './userAccess';
+export { watchGetCurrentUser, watchSignUpWithUsernameAndPassword, watchSignInWithUsernameAndPassword, watchSignOut } from './userAccess';
 
 export const configParseServerSdk = (serverUrl: string, applicationId: string, javascriptKey: string) => {
   Parse.initialize(applicationId, javascriptKey);

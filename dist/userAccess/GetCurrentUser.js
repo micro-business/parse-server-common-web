@@ -4,6 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _microBusinessCommonReact = require('micro-business-common-react');
+
+var _Actions = require('micro-business-common-react/src/userAccess/Actions');
+
+var UserAccessActions = _interopRequireWildcard(_Actions);
+
 var _effects = require('redux-saga/effects');
 
 var _services = require('../services');
@@ -12,17 +18,9 @@ var _Common = require('./Common');
 
 var _Common2 = _interopRequireDefault(_Common);
 
-var _ActionTypes = require('./ActionTypes');
-
-var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
-
-var _Actions = require('./Actions');
-
-var UserAccessActions = _interopRequireWildcard(_Actions);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _marked = /*#__PURE__*/regeneratorRuntime.mark(getCurrentUserAsync);
 
@@ -83,7 +81,7 @@ var watcher = /*#__PURE__*/regeneratorRuntime.mark(function watchGetCurrentUser(
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return (0, _effects.takeLatest)(_ActionTypes2.default.USER_ACCESS_GET_CURRENT_USER, getCurrentUserAsync);
+          return (0, _effects.takeLatest)(_microBusinessCommonReact.UserAccessActionTypes.USER_ACCESS_GET_CURRENT_USER, getCurrentUserAsync);
 
         case 2:
         case 'end':
