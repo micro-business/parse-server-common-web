@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _microBusinessCommonReact = require('micro-business-common-react');
 
-var _Actions = require('micro-business-common-react/src/userAccess/Actions');
+var _Actions = require('micro-business-common-react/dist/userAccess/Actions');
 
 var UserAccessActions = _interopRequireWildcard(_Actions);
 
