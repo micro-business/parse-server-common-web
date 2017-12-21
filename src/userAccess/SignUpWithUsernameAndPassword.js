@@ -1,7 +1,7 @@
 // @flow
 
-import { UserAccessActionTypes } from 'micro-business-common-react';
-import * as UserAccessActions from 'micro-business-common-react/dist/userAccess/Actions';
+import { UserAccessActionTypes } from '@microbusiness/common-react';
+import * as UserAccessActions from '@microbusiness/common-react/dist/userAccess/Actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserService } from '../services';
 import Common from './Common';

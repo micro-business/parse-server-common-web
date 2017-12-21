@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _microBusinessCommonReact = require('micro-business-common-react');
+var _commonReact = require('@microbusiness/common-react');
 
-var _Actions = require('micro-business-common-react/dist/userAccess/Actions');
+var _Actions = require('@microbusiness/common-react/dist/userAccess/Actions');
 
 var UserAccessActions = _interopRequireWildcard(_Actions);
 
@@ -81,7 +81,7 @@ var watcher = /*#__PURE__*/regeneratorRuntime.mark(function watchSignUpWithUsern
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return (0, _effects.takeLatest)(_microBusinessCommonReact.UserAccessActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD, signUpWithUsernameAndPasswordAsync);
+          return (0, _effects.takeLatest)(_commonReact.UserAccessActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD, signUpWithUsernameAndPasswordAsync);
 
         case 2:
         case 'end':
