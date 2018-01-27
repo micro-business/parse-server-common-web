@@ -4,9 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _immutable = require('immutable');
+
+var _immutable2 = _interopRequireDefault(_immutable);
+
 var _parse = require('parse');
 
 var _parse2 = _interopRequireDefault(_parse);
+
+var _services = require('../services');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,17 +30,7 @@ var BaseObject = function (_Parse$Object) {
 
     var _this = _possibleConstructorReturn(this, (BaseObject.__proto__ || Object.getPrototypeOf(BaseObject)).call(this, className));
 
-    _this.getObject = function () {
-      return _this.object || _this;
-    };
-
-    _this.saveObject = function (sessionToken) {
-      return _this.getObject().save(null, { sessionToken: sessionToken });
-    };
-
-    _this.getId = function () {
-      return _this.getObject().id;
-    };
+    _initialiseProps.call(_this);
 
     _this.object = object;
     return _this;
@@ -42,5 +38,136 @@ var BaseObject = function (_Parse$Object) {
 
   return BaseObject;
 }(_parse2.default.Object);
+
+BaseObject.createStringColumn = function (object, info, columnName) {
+  var value = info.get(columnName);
+
+  object.set(columnName, value);
+  object.set(columnName + 'LowerCase', value ? value.toLowerCase() : undefined);
+};
+
+BaseObject.createMultiLanguagesStringColumn = function (object, info, columnName) {
+  var languages = info.get(columnName);
+
+  if (!_immutable.Map.isMap(languages)) {
+    throw new Error('Provided value is not of type Map.');
+  }
+
+  var allProvidedLanguages = languages.keySeq().toArray();
+
+  object.set('languages_' + columnName, allProvidedLanguages);
+
+  allProvidedLanguages.forEach(function (language) {
+    var value = languages.get(language);
+
+    object.set(language + '_' + columnName, value);
+    object.set(language + '_' + columnName + 'LowerCase', value ? value.toLowerCase() : undefined);
+  });
+};
+
+BaseObject.createUserPointer = function (object, info, columnName) {
+  if (info.has(columnName + 'Id')) {
+    var id = info.get(columnName + 'Id');
+
+    if (id) {
+      object.set(columnName, _services.ParseWrapperService.createUserWithoutData(id));
+    }
+  } else if (info.has(columnName)) {
+    var refObject = info.get(columnName);
+
+    if (refObject) {
+      object.set(columnName, refObject);
+    }
+  }
+};
+
+BaseObject.createUserArrayPointer = function (object, info, columnName) {
+  if (info.has(columnName + 'Ids')) {
+    var ids = info.get(columnName + 'Ids');
+
+    if (ids && !ids.isEmpty()) {
+      object.set(columnName + 's', ids.map(function (id) {
+        return _services.ParseWrapperService.createUserWithoutData(id);
+      }).toArray());
+    } else {
+      object.set(columnName + 's', []);
+    }
+  } else if (info.has(columnName + 's')) {
+    var refObjects = info.get(columnName + 's');
+
+    if (refObjects && !refObjects.isEmpty()) {
+      object.set(columnName + 's', refObjects.toArray());
+    } else {
+      object.set(columnName + 's', []);
+    }
+  }
+};
+
+BaseObject.createPointer = function (object, info, columnName, ObjectType) {
+  if (info.has(columnName + 'Id')) {
+    var id = info.get(columnName + 'Id');
+
+    if (id) {
+      object.set(columnName, ObjectType.createWithoutData(id));
+    }
+  } else if (info.has(columnName)) {
+    var refObject = info.get(columnName);
+
+    if (refObject) {
+      object.set(columnName, refObject);
+    }
+  }
+};
+
+BaseObject.createArrayPointer = function (object, info, columnName, ObjectType) {
+  if (info.has(columnName + 'Ids')) {
+    var ids = info.get(columnName + 'Ids');
+
+    if (ids && !ids.isEmpty()) {
+      object.set(columnName + 's', ids.map(function (id) {
+        return ObjectType.createWithoutData(id);
+      }).toArray());
+    } else {
+      object.set(columnName + 's', []);
+    }
+  } else if (info.has(columnName + 's')) {
+    var refObjects = info.get(columnName + 's');
+
+    if (refObjects && !refObjects.isEmpty()) {
+      object.set(columnName + 's', refObjects.toArray());
+    } else {
+      object.set(columnName + 's', []);
+    }
+  }
+};
+
+var _initialiseProps = function _initialiseProps() {
+  var _this2 = this;
+
+  this.getObject = function () {
+    return _this2.object || _this2;
+  };
+
+  this.saveObject = function (sessionToken) {
+    return _this2.getObject().save(null, { sessionToken: sessionToken });
+  };
+
+  this.getId = function () {
+    return _this2.getObject().id;
+  };
+
+  this.getMultiLanguagesString = function (columnName) {
+    var object = _this2.getObject();
+    var languages = _immutable2.default.fromJS(object.get('languages_' + columnName));
+
+    if (!languages) {
+      return (0, _immutable.Map)();
+    }
+
+    return languages.reduce(function (reduction, language) {
+      return reduction.set(language, object.get(language + '_' + columnName));
+    }, (0, _immutable.Map)());
+  };
+};
 
 exports.default = BaseObject;
