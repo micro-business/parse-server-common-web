@@ -149,25 +149,56 @@ UserService.resetPassword = function () {
   };
 }();
 
-UserService.updatePassword = function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(newPassword) {
-    var user;
+UserService.updateUserDetails = function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+    var _ref6 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        username = _ref6.username,
+        password = _ref6.password,
+        emailAddress = _ref6.emailAddress,
+        userType = _ref6.userType;
+
+    var user = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var finalUser;
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
+            _context5.t0 = user;
+
+            if (_context5.t0) {
+              _context5.next = 5;
+              break;
+            }
+
+            _context5.next = 4;
             return _ParseWrapperService2.default.getCurrentUserAsync();
 
-          case 2:
-            user = _context5.sent;
-
-
-            user.setPassword(newPassword);
-
-            return _context5.abrupt('return', user.save());
+          case 4:
+            _context5.t0 = _context5.sent;
 
           case 5:
+            finalUser = _context5.t0;
+
+
+            if (username) {
+              finalUser.setUsername(username);
+            }
+
+            if (password) {
+              finalUser.setPassword(password);
+            }
+
+            if (emailAddress) {
+              finalUser.setEmail(emailAddress);
+            }
+
+            if (userType) {
+              finalUser.set('userType', userType);
+            }
+
+            return _context5.abrupt('return', finalUser.save());
+
+          case 11:
           case 'end':
             return _context5.stop();
         }
@@ -175,7 +206,7 @@ UserService.updatePassword = function () {
     }, _callee5, undefined);
   }));
 
-  return function (_x8) {
+  return function () {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -237,7 +268,7 @@ UserService.getCurrentUserSession = _asyncToGenerator( /*#__PURE__*/regeneratorR
 }));
 
 UserService.getUserForProvidedSessionToken = function () {
-  var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(sessionToken) {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
@@ -258,13 +289,13 @@ UserService.getUserForProvidedSessionToken = function () {
     }, _callee8, undefined);
   }));
 
-  return function (_x9) {
-    return _ref8.apply(this, arguments);
+  return function (_x10) {
+    return _ref9.apply(this, arguments);
   };
 }();
 
 UserService.getUserById = function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(id, sessionToken) {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(id, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
@@ -294,13 +325,13 @@ UserService.getUserById = function () {
     }, _callee9, undefined);
   }));
 
-  return function (_x10, _x11) {
-    return _ref9.apply(this, arguments);
+  return function (_x11, _x12) {
+    return _ref10.apply(this, arguments);
   };
 }();
 
 UserService.getUser = function () {
-  var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(username, sessionToken) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(username, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee10$(_context10) {
       while (1) {
@@ -330,13 +361,13 @@ UserService.getUser = function () {
     }, _callee10, undefined);
   }));
 
-  return function (_x12, _x13) {
-    return _ref10.apply(this, arguments);
+  return function (_x13, _x14) {
+    return _ref11.apply(this, arguments);
   };
 }();
 
 UserService.getUserInfo = function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(username, sessionToken) {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(username, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee11$(_context11) {
       while (1) {
@@ -363,13 +394,13 @@ UserService.getUserInfo = function () {
     }, _callee11, undefined);
   }));
 
-  return function (_x14, _x15) {
-    return _ref11.apply(this, arguments);
+  return function (_x15, _x16) {
+    return _ref12.apply(this, arguments);
   };
 }();
 
 UserService.getUserInfoById = function () {
-  var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(id, sessionToken) {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(id, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee12$(_context12) {
       while (1) {
@@ -396,8 +427,8 @@ UserService.getUserInfoById = function () {
     }, _callee12, undefined);
   }));
 
-  return function (_x16, _x17) {
-    return _ref12.apply(this, arguments);
+  return function (_x17, _x18) {
+    return _ref13.apply(this, arguments);
   };
 }();
 
