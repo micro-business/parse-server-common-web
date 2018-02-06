@@ -268,21 +268,30 @@ UserService.getCurrentUserSession = _asyncToGenerator( /*#__PURE__*/regeneratorR
   }, _callee7, undefined);
 }));
 
-UserService.getUserForProvidedSessionToken = function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(sessionToken) {
+UserService.getUserById = function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(id, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
             _context8.next = 2;
-            return _ParseWrapperService2.default.createSessionQuery().equalTo('sessionToken', sessionToken).first({ useMasterKey: true });
+            return _ParseWrapperService2.default.createUserQuery().equalTo('objectId', id).first({ sessionToken: sessionToken });
 
           case 2:
             result = _context8.sent;
-            return _context8.abrupt('return', result ? result.get('user') : null);
 
-          case 4:
+            if (!result) {
+              _context8.next = 5;
+              break;
+            }
+
+            return _context8.abrupt('return', result);
+
+          case 5:
+            throw new Error('No user found with id: ' + id);
+
+          case 6:
           case 'end':
             return _context8.stop();
         }
@@ -290,20 +299,20 @@ UserService.getUserForProvidedSessionToken = function () {
     }, _callee8, undefined);
   }));
 
-  return function (_x9) {
+  return function (_x9, _x10) {
     return _ref9.apply(this, arguments);
   };
 }();
 
-UserService.getUserById = function () {
-  var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(id, sessionToken) {
+UserService.getUser = function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(username, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
             _context9.next = 2;
-            return _ParseWrapperService2.default.createUserQuery().equalTo('objectId', id).first({ sessionToken: sessionToken });
+            return _ParseWrapperService2.default.createUserQuery().equalTo('username', username).first({ sessionToken: sessionToken });
 
           case 2:
             result = _context9.sent;
@@ -316,7 +325,7 @@ UserService.getUserById = function () {
             return _context9.abrupt('return', result);
 
           case 5:
-            throw new Error('No user found with id: ' + id);
+            throw new Error('No user found with username: ' + username);
 
           case 6:
           case 'end':
@@ -326,12 +335,12 @@ UserService.getUserById = function () {
     }, _callee9, undefined);
   }));
 
-  return function (_x10, _x11) {
+  return function (_x11, _x12) {
     return _ref10.apply(this, arguments);
   };
 }();
 
-UserService.getUser = function () {
+UserService.getUserInfo = function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(username, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee10$(_context10) {
@@ -339,22 +348,19 @@ UserService.getUser = function () {
         switch (_context10.prev = _context10.next) {
           case 0:
             _context10.next = 2;
-            return _ParseWrapperService2.default.createUserQuery().equalTo('username', username).first({ sessionToken: sessionToken });
+            return UserService.getUser(username, sessionToken);
 
           case 2:
             result = _context10.sent;
+            return _context10.abrupt('return', (0, _immutable.Map)({
+              id: result.id,
+              username: result.getUsername(),
+              emailAddress: result.getEmail(),
+              userType: result.get('userType'),
+              providerEmail: result.get('providerEmail')
+            }));
 
-            if (!result) {
-              _context10.next = 5;
-              break;
-            }
-
-            return _context10.abrupt('return', result);
-
-          case 5:
-            throw new Error('No user found with username: ' + username);
-
-          case 6:
+          case 4:
           case 'end':
             return _context10.stop();
         }
@@ -362,20 +368,20 @@ UserService.getUser = function () {
     }, _callee10, undefined);
   }));
 
-  return function (_x12, _x13) {
+  return function (_x13, _x14) {
     return _ref11.apply(this, arguments);
   };
 }();
 
-UserService.getUserInfo = function () {
-  var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(username, sessionToken) {
+UserService.getUserInfoById = function () {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(id, sessionToken) {
     var result;
     return regeneratorRuntime.wrap(function _callee11$(_context11) {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
             _context11.next = 2;
-            return UserService.getUser(username, sessionToken);
+            return UserService.getUserById(id, sessionToken);
 
           case 2:
             result = _context11.sent;
@@ -395,41 +401,8 @@ UserService.getUserInfo = function () {
     }, _callee11, undefined);
   }));
 
-  return function (_x14, _x15) {
+  return function (_x15, _x16) {
     return _ref12.apply(this, arguments);
-  };
-}();
-
-UserService.getUserInfoById = function () {
-  var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(id, sessionToken) {
-    var result;
-    return regeneratorRuntime.wrap(function _callee12$(_context12) {
-      while (1) {
-        switch (_context12.prev = _context12.next) {
-          case 0:
-            _context12.next = 2;
-            return UserService.getUserById(id, sessionToken);
-
-          case 2:
-            result = _context12.sent;
-            return _context12.abrupt('return', (0, _immutable.Map)({
-              id: result.id,
-              username: result.getUsername(),
-              emailAddress: result.getEmail(),
-              userType: result.get('userType'),
-              providerEmail: result.get('providerEmail')
-            }));
-
-          case 4:
-          case 'end':
-            return _context12.stop();
-        }
-      }
-    }, _callee12, undefined);
-  }));
-
-  return function (_x16, _x17) {
-    return _ref13.apply(this, arguments);
   };
 }();
 
